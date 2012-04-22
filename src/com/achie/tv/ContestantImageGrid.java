@@ -19,8 +19,10 @@ package com.achie.tv;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -87,6 +89,20 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
      */
     protected Dialog mSplashDialog;
 
+    private MyReceiver reciever;
+
+    protected void onPause(){
+      super.onPause();
+      unregisterReceiver(reciever);
+    }
+
+    protected void onStart(){
+      super.onStart();
+      reciever = new MyReceiver(this);
+      registerReceiver(reciever, new IntentFilter("UpdateContestant"));
+    }
+    
+
     @Override
     protected void onDestroy() {
         super.onStop();
@@ -138,7 +154,9 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
         setContentView(R.layout.image_grid_c);
         gridView = (GridView) findViewById(R.id.gridview_c);
         mShow = JsonUtil.getShow(query);
-        
+
+        if (query == null)
+            return;
         mContestants = mShow.contestants;
         
         mAdapter = new ContestantsAdapter(
@@ -265,6 +283,24 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
         protected void onCancelled() {
             super.onCancelled();
             hasVoted = false;
+        }
+    }
+    
+    public class MyReceiver extends BroadcastReceiver {
+
+        private Activity activity;
+
+        public MyReceiver(Activity activity) {
+            this.activity = activity;
+            Log.i("dbg","MyReciever created");
+        }
+
+        public void onReceive(Context context, Intent intent) {
+            Log.i("dbg","onRecieve() called!");
+            if(this.activity != null) {
+                //initGridView();
+            }
+
         }
     }
 }

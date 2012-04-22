@@ -120,6 +120,8 @@ public class VoteResultService extends Service {
 	    	  resultBundle.putString("result", result.toString());
 	    	  msg.setData(resultBundle);
 	    	  mServiceHandler.sendMessage(msg);
+	    	  Intent i = new Intent("UpdateContestant");
+	    	  sendBroadcast(i);
 		}
 		  
 	  }
