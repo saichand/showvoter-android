@@ -7,9 +7,12 @@ import com.achie.tv.adapter.TvShowsAdapter;
 import com.achie.tv.http.TvHttpHandler;
 import com.achie.tv.model.Contestant;
 import com.achie.tv.model.TvShow;
+import com.achie.tv.service.VoteResultService;
 import com.achie.tv.util.JsonUtil;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +36,8 @@ public class ContestantsActivity extends Activity {
 	private TvShow mShow;
 	
 	private long mContestantId = -1;
+	
+	private String selectedContestantName = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class ContestantsActivity extends Activity {
 			Log.v(tag, "clicked on " + mContestants.get(position).toJSONString());
 			if (!hasVoted) {
 				mContestantId = mContestants.get(position).contestantId;
+				selectedContestantName = mContestants.get(position).name;
 				new SubmitVoteTask().execute("");
 			}
 		}
@@ -119,6 +125,13 @@ public class ContestantsActivity extends Activity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			Toast.makeText(ContestantsActivity.this, "Vote Casted: " + resultString, Toast.LENGTH_SHORT).show();
+			Intent resultService = new Intent(ContestantsActivity.this, VoteResultService.class);
+			Bundle bundle = new Bundle();
+			bundle.putLong("showId", mShow.showId);
+			bundle.putLong("contestantId", mContestantId);
+			bundle.putString("selectedContestantName", selectedContestantName);
+			resultService.putExtras(bundle);
+			startService(resultService);
 		}
 		
 		@Override

@@ -33,6 +33,7 @@
         </activity>
         <activity
             android:name=".ContestantsActivity" android:screenOrientation="landscape" />
+        <service android:name=".service.VoteResultService"></service>
     </application>
 
 </manifest>

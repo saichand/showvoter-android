@@ -35,6 +35,8 @@ public class TvHttpHandler {
 	private static TvHttpClient mHttpClient;
 	private static final String URL_GET_SHOWS = "http://showvoter.appspot.com/showList/1/2";
 	private static final String URL_SUBMIT_VOTE = "http://showvoter.appspot.com/addVote/";
+	
+	private static final String BASE_RESULT_URL = "http://showvoter.appspot.com/getResult/";
 
 	public static HttpResponse getRequest(String url) {
 		final HttpGet getRequest = new HttpGet(url);
@@ -145,31 +147,50 @@ public class TvHttpHandler {
 	}
 	
     public static String getShows() {
-		InputStream inputStream = null;
-		BufferedReader reader = null;
+		
 		String result = "";
 		mHttpClient = TvHttpClient.getInstance();
 		
 		try {
-			HttpResponse response = mHttpClient.execute(new HttpGet(URL_GET_SHOWS));
+			result = getDataFromHttpResponse(mHttpClient.execute(new HttpGet(URL_GET_SHOWS)));
+		}
+		catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return result;
+    }
+    
+    public static String getResult(long showId, long contestantId) {
+    	
+    	return getDataFromHttpResponse(TvHttpHandler.getRequest(BASE_RESULT_URL + showId + "/" + contestantId));
+    }
+    
+    private static String getDataFromHttpResponse(HttpResponse response) {
+    	StringBuffer builder = new StringBuffer("");
+    	InputStream inputStream = null;
+		BufferedReader reader = null;
+		try {
 			HttpEntity entity = response.getEntity();
 			if(entity != null){
 				inputStream = entity.getContent();
 			}
 			reader = new BufferedReader(new InputStreamReader(inputStream), 8000);
-			StringBuffer builder = new StringBuffer("");
+			
 			String line = null;
 			while((line = reader.readLine()) != null){
 				builder.append(line+"\n");
 			}
 			inputStream.close();
-			
-			result = builder.toString();
-		} catch (ClientProtocolException e) {
+
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
+		} 
+		finally{
 			if(inputStream != null){
 				try{
 					inputStream.close();
@@ -178,8 +199,7 @@ public class TvHttpHandler {
 				}
 			}
 		}
-		
-		return result;
+		return builder.toString();
     }
     
 	public static Bitmap downloadBitmap(String url) {
