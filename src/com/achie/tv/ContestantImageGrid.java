@@ -199,7 +199,7 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
     }
 
     private void handleIntent(Intent intent) throws IOException, URISyntaxException, JSONException {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+        /*if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
         } else {
             query = intent.getStringExtra("query");
@@ -207,9 +207,10 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
 
         if (query == null || query.isEmpty()) {
             query = DEFAULT_QUERY;
-        }
+        }*/
         // Start downloading
-        mImageManager.load(query);
+        //mImageManager.load(query);
+        initGridView();
     }
     
     private class SubmitVoteTask extends AsyncTask<String, Integer, String> {

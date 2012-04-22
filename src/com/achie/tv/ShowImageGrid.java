@@ -104,7 +104,7 @@ public class ShowImageGrid extends Activity implements OnClickListener {
         if (!isSplashShown) {
             setContentView(R.layout.splash_screen);
             isSplashShown = true;
-            CountDownTimer timer = new CountDownTimer(5000, 1000) {
+            CountDownTimer timer = new CountDownTimer(3000, 1000) {
                 public void onTick(long millisUntilFinished) {
                 }
 
