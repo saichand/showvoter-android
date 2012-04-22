@@ -7,5 +7,30 @@
     <string name="vote_header">Pick a contestant</string>
     <string name="submit">Submit</string>
     <string name="loading_shows">loading shows</string>
+    <string name="shows">Shows</string>
 
+     <string name="search">Search</string>
+    <string name="cool_places">Cool Places</string>
+    <string name="search_hint">e.g. “New York”, “Beijing”, “Paris”...</string>
+    <string name="menu_map">Map</string>
+    <string name="menu_author">Author info</string>
+    <string name="menu_view">View on web</string>
+    <string name="untitled">Untitled</string>
+    <string name="copyright">Photos provided by Panoramio are under the copyright of
+        their
+        owners.</string>
+    <string name="splash">
+        Welcome to Vote It!\n\n
+        Vote for your favorite contestants while you watch Live TV shows
+</string>
+    <string name="splash_c">
+        Loading contestants...
+</string>
+   
+    <string name="slideshow_play_hint">Press Play to start the slideshow.\nPress Down to see
+        the thumbnails</string>
+         <string name="hide_thumbnails_hint">Press Up to hide
+        the thumbnails</string>
+        <string name='slideshow_paused'>Pausing the slideshow</string>
+          <string name='slideshow_started'>Starting the slideshow</string>
 </resources>

@@ -14,6 +14,7 @@ public class Contestant {
 	public String imageUrl;
 	public long voteCount;
 	public String rank;
+	public String contestantCode;
 	
 	public String toJSONString() {
 		JSONObject contestantObject = new JSONObject();
@@ -26,6 +27,7 @@ public class Contestant {
 			contestantObject.putOpt(C.jsonKeys.CONT_IMG_URL, imageUrl);
 			contestantObject.putOpt(C.jsonKeys.CONT_VOTES, voteCount);
 			contestantObject.putOpt(C.jsonKeys.CONT_RANK, rank);
+			contestantObject.putOpt(C.jsonKeys.CONT_CODE, contestantCode);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

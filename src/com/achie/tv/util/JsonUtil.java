@@ -26,6 +26,7 @@ public class JsonUtil {
 			contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
 			contestant.voteCount = contestantObject.optLong(C.jsonKeys.CONT_VOTES);
 			contestant.rank = contestantObject.optString(C.jsonKeys.CONT_RANK);
+			contestant.contestantCode= contestantObject.optString(C.jsonKeys.CONT_CODE);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

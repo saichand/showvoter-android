@@ -30,7 +30,7 @@ public abstract class TvShowsAdapter extends ArrayAdapter<TvShow> {
 	
 	private static final String tag = "############### TvShowsAdapter :: ";
 	
-	public TvShowsAdapter(Context context, int resource, int textViewResourceId, ArrayList<TvShow> objects) {
+	public TvShowsAdapter(Context context, int resource, int textViewResourceId, List<TvShow> objects) {
 		super(context, resource, textViewResourceId, objects);
 		mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.mTvShows = objects;
@@ -62,7 +62,8 @@ public abstract class TvShowsAdapter extends ArrayAdapter<TvShow> {
 		
 		final TvShow tvShow = (TvShow) getItem(position);
 		if(convertView==null){
-			convertView = mInflater.inflate(R.layout.list_item_image_two_rows, parent, false);
+			//convertView = mInflater.inflate(R.layout.list_item_image_two_rows, parent, false);
+		    convertView = mInflater.inflate(R.layout.list_item_image_two_rows, parent, false);
 			holder = new ViewHolder();
 			holder.tvTitle = (TextView)convertView.findViewById(R.id.tv_title);
 			holder.tvDescription = (TextView)convertView.findViewById(R.id.tv_description);

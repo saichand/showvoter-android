@@ -36,6 +36,7 @@ public class C {
 		
 		public static final String CONT_NAME 			= "name";
 		public static final String CONT_ID 				= "contestantId";
+		public static final String CONT_CODE            = "contestantCode";
 		public static final String CONT_INFO 			= "contestantInfo";
 		public static final String CONT_IMG_URL 		= "imgUrl";
 		public static final String CONT_VOTES 			= "voteCount";
