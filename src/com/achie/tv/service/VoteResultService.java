@@ -66,7 +66,7 @@ public class VoteResultService extends Service {
 	      Log.v("VoteResultService", "ShowId: " + showId + " ContestantId: " + contestantId);
 	      
 	      for (int i = 1; i <= 50; i++) {
-	    	  new Thread(new ResultFetcher(showId, contestantId, selectedContestantName, i * 5000)).start(); 
+	    	  new Thread(new ResultFetcher(showId, contestantId, selectedContestantName, i * 10000)).start(); 
 	      }
 	      
 	      // If we get killed, after returning from here, restart

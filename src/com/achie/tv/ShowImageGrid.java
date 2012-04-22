@@ -180,7 +180,9 @@ public class ShowImageGrid extends Activity implements OnClickListener {
     @Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
-        progressBar.setVisibility(View.VISIBLE);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
         try {
             handleIntent(intent);
         } catch (final IOException e) {

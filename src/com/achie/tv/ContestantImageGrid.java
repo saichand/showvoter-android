@@ -269,7 +269,7 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast.makeText(ContestantImageGrid.this, "Vote Casted: " + resultString, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ContestantImageGrid.this, "Done", Toast.LENGTH_SHORT).show();
             Intent resultService = new Intent(ContestantImageGrid.this, VoteResultService.class);
             Bundle bundle = new Bundle();
             bundle.putLong("showId", mShow.showId);
@@ -298,7 +298,14 @@ public class ContestantImageGrid extends Activity implements OnClickListener {
         public void onReceive(Context context, Intent intent) {
             Log.i("dbg","onRecieve() called!");
             if(this.activity != null) {
-                //initGridView();
+                Bundle dataFromActivity = intent.getExtras();
+                long contestantId = dataFromActivity.getLong("contestantId");
+                long voteCount = dataFromActivity.getLong("voteCount");
+                String rank = dataFromActivity.getString("rank");
+                mAdapter.updateStatsForVotedContestant(contestantId, voteCount, rank);
+                mAdapter.notifyDataSetChanged();
+                gridView.invalidateViews();
+                //initGridView(contestantId, voteCount, rank);
             }
 
         }

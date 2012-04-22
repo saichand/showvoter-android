@@ -28,6 +28,12 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 
 	private LayoutInflater mInflater;
 	
+	private long contestantId;
+	
+	private long count;
+	
+	private String rank;
+	
 	private HashMap<Long, Bitmap> contestantBitmap = new HashMap<Long, Bitmap>();
 //	private static final String tag = "############### TvShowsAdapter :: ";
 	
@@ -80,9 +86,14 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 			String title = contestant.name;
 			holder.cName.setText(title);
 			holder.cDescription.setText(contestant.contestantInfo);
-			holder.cVoteCount.setText("Votes: " + String.valueOf(contestant.voteCount));
-			holder.cRank.setText("Current Rank: " + contestant.rank);
-			
+			if (rank == null || contestant.contestantId != contestantId) {
+    			holder.cVoteCount.setText("Votes: " + String.valueOf(contestant.voteCount));
+    			holder.cRank.setText("Current Rank: " + contestant.rank);
+			}
+			else {
+			    holder.cVoteCount.setText("Votes: " + String.valueOf(count));
+                holder.cRank.setText("Current Rank: " + rank);
+			}
 			if (contestant.imageUrl != null) {
 			    if (contestantBitmap.containsKey(contestant.contestantId)) {
 			        holder.ivIcon.setImageBitmap(contestantBitmap.get(contestant.contestantId));
@@ -151,5 +162,10 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 			}
 		}
 	}
-	
+
+	public void updateStatsForVotedContestant(long contestantId, long count, String rank) {
+	    this.contestantId = contestantId;
+	    this.count = count;
+	    this.rank = rank;
+	}
 }
