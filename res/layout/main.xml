@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp" >
+    
+    <ListView
+        android:id="@+id/lv_shows"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    
+    <!--LinearLayout
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <TextView 
+            android:id="@+id/tv_option_1"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:focusable="true" android:clickable="true"
+            android:nextFocusRight="@id/tv_option_2"
+            android:nextFocusDown="@id/tv_option_2"
+        	android:textColor="@android:color/white"
+            android:text="Option 1" />
+        <TextView 
+            android:id="@+id/tv_option_2"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:nextFocusLeft="@id/tv_option_1"
+            android:nextFocusUp="@id/tv_option_1"
+            android:nextFocusRight="@id/tv_option_3"
+            android:nextFocusDown="@id/tv_option_3"
+        	android:textColor="@android:color/white"
+            android:text="Option 2" />
+        <TextView 
+            android:id="@+id/tv_option_3"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:nextFocusLeft="@id/tv_option_2"
+            android:nextFocusUp="@id/tv_option_2"
+            android:nextFocusRight="@id/tv_option_4"
+            android:nextFocusDown="@id/tv_option_4"
+        	android:textColor="@android:color/white"
+            android:text="Option 3" />
+        <TextView 
+            android:id="@+id/tv_option_4"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:nextFocusLeft="@id/tv_option_3"
+            android:nextFocusUp="@id/tv_option_3"
+       		android:textColor="@android:color/white"
+            android:text="Option 4" />
+	</LinearLayout-->
+</LinearLayout>

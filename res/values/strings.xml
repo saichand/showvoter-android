@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Vote It</string>
+    
+    <string name="main_header">Pick a show to cast your vote</string>
+    <string name="vote_header">Pick a contestant</string>
+    <string name="submit">Submit</string>
+    <string name="loading_shows">loading shows</string>
+
+</resources>
