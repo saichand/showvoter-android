@@ -102,12 +102,14 @@ public class VoteResultService extends Service {
 			  StringBuilder result = new StringBuilder("New Results for ");
 	    	  result.append(contestantName);
 	    	  
+	    	  long votes = 0;
+	    	  String rank = "";
 	    	  String cResultJson = TvHttpHandler.getResult(showId, contestantId);
 	    	  if (cResultJson != null) {
 	    		  try {
 					JSONObject resultJsonObj = new JSONObject(cResultJson);
-					long votes = resultJsonObj.optLong(C.jsonKeys.CONT_VOTES);
-					String rank = resultJsonObj.optString(C.jsonKeys.CONT_RANK);
+					votes = resultJsonObj.optLong(C.jsonKeys.CONT_VOTES);
+					rank = resultJsonObj.optString(C.jsonKeys.CONT_RANK);
 					result.append("\n Votes: ").append(votes);
 					result.append("\n Rank: ").append(rank);
 				} catch (JSONException e) {
@@ -120,8 +122,18 @@ public class VoteResultService extends Service {
 	    	  resultBundle.putString("result", result.toString());
 	    	  msg.setData(resultBundle);
 	    	  mServiceHandler.sendMessage(msg);
-	    	  Intent i = new Intent("UpdateContestant");
-	    	  sendBroadcast(i);
+	    	  
+	    	  Intent returnResultToActivity = new Intent("UpdateContestant");
+
+	    	  Bundle bundle = new Bundle();
+	    	  bundle.putLong("showId", showId);
+	    	  bundle.putLong("contestantId", contestantId);
+	    	  bundle.putString("contestantName", contestantName);
+	    	  bundle.putLong("voteCount", votes);
+	    	  bundle.putString("rank", rank);
+	    	  
+	    	  returnResultToActivity.putExtras(bundle);
+	    	  sendBroadcast(returnResultToActivity);
 		}
 		  
 	  }
