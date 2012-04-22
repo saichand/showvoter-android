@@ -28,7 +28,7 @@ public class RealityShowActivity extends Activity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.tvshows);
-        VoteTvLeftNavService.getLeftNavBar(this);
+        //VoteTvLeftNavService.getLeftNavBar(this);
     }
 
     public void onClick(View view) {

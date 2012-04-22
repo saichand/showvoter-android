@@ -24,15 +24,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
-import com.example.google.tv.leftnavbar.LeftNavBar;
-import com.example.google.tv.leftnavbar.LeftNavBarService;
-
 /**
  * This class helps with setting the left-side navigation bar in an Activity's layout.
  */
 public class VoteTvLeftNavService {
 
-    private static Context mContext;
+    /*private static Context mContext;
 
     public static LeftNavBar getLeftNavBar(Context context) {
         LeftNavBar bar = (LeftNavBarService.instance()).getLeftNavBar((Activity) context);
@@ -70,5 +67,5 @@ public class VoteTvLeftNavService {
 
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
         }
-    };
+    };*/
 }
