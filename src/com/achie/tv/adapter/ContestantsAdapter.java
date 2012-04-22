@@ -2,6 +2,7 @@ package com.achie.tv.adapter;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.achie.tv.R;
@@ -27,6 +28,7 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 
 	private LayoutInflater mInflater;
 	
+	private HashMap<Long, Bitmap> contestantBitmap = new HashMap<Long, Bitmap>();
 //	private static final String tag = "############### TvShowsAdapter :: ";
 	
 	public ContestantsAdapter(Context context, int resource, int textViewResourceId, ArrayList<Contestant> objects) {
@@ -61,10 +63,12 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 
 		final Contestant contestant = (Contestant) getItem(position);
 		if(convertView==null){
-			convertView = mInflater.inflate(R.layout.list_item_image_two_rows, parent, false);
+			convertView = mInflater.inflate(R.layout.list_item_image_two_rows_c, parent, false);
 			holder = new ViewHolder();
-			holder.tvTitle = (TextView)convertView.findViewById(R.id.tv_title);
-			holder.tvDescription = (TextView)convertView.findViewById(R.id.tv_description);
+			holder.cName = (TextView)convertView.findViewById(R.id.c_name);
+			holder.cDescription = (TextView)convertView.findViewById(R.id.c_description);
+			holder.cVoteCount = (TextView)convertView.findViewById(R.id.c_voteCount);
+			holder.cRank = (TextView)convertView.findViewById(R.id.c_rank);
 			holder.ivIcon = (ImageView)convertView.findViewById(R.id.iv_icon);
 			
 			convertView.setTag(holder);
@@ -74,20 +78,29 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 		
 		if(contestant != null){
 			String title = contestant.name;
-			holder.tvTitle.setText(title);
+			holder.cName.setText(title);
+			holder.cDescription.setText(contestant.contestantInfo);
+			holder.cVoteCount.setText("Votes: " + String.valueOf(contestant.voteCount));
+			holder.cRank.setText("Current Rank: " + contestant.rank);
 			
 			if (contestant.imageUrl != null) {
-				downloadImage(contestant.imageUrl, holder.ivIcon);
+			    if (contestantBitmap.containsKey(contestant.contestantId)) {
+			        holder.ivIcon.setImageBitmap(contestantBitmap.get(contestant.contestantId));
+			    }
+			    else {
+			        downloadImage(contestant.imageUrl, holder.ivIcon, contestant.contestantId);
+			    }
 			}
 			
-			holder.tvDescription.setText(contestant.contestantInfo);
 		}
 		return convertView;
 	}
 	
 	static class ViewHolder{
-		TextView tvTitle;
-		TextView tvDescription;
+		TextView cName;
+		TextView cDescription;
+		TextView cVoteCount;
+		TextView cRank;
 		ImageView ivIcon;
 	}
 	
@@ -97,24 +110,25 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 	}
 	
 	
-    private void downloadImage(String url, ImageView iv) {
+    private void downloadImage(String url, ImageView iv, long id) {
     	ImageDownloader downloader = new ImageDownloader();
-    	downloader.downloadImage(url, iv);
+    	downloader.downloadImage(url, iv, id);
     }
 	
 	private class ImageDownloader {
-		public void downloadImage(String url, ImageView imageView) {
-			BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
+		public void downloadImage(String url, ImageView imageView, long id) {
+			BitmapDownloaderTask task = new BitmapDownloaderTask(imageView, id);
 			task.execute(url);
 		}
 	}
     
-	private class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
+	class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
 
 		private final WeakReference<ImageView> imageViewReference;
-		
-		public BitmapDownloaderTask(ImageView imageView) {
+		private long contId;
+		public BitmapDownloaderTask(ImageView imageView, long id) {
 			imageViewReference = new WeakReference<ImageView>(imageView);
+			contId = id;
 		}
 		
 		@Override
@@ -132,6 +146,7 @@ public abstract class ContestantsAdapter extends ArrayAdapter<Contestant> {
 				ImageView imageView = imageViewReference.get();
 				if (imageView != null) {
 					imageView.setImageBitmap(bitmap);
+					contestantBitmap.put(contId, bitmap);
 				}
 			}
 		}

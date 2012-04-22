@@ -49,8 +49,8 @@ public class ContestantsActivity extends Activity {
         	
         	mAdapter = new ContestantsAdapter(
     				ContestantsActivity.this, 
-    				R.layout.list_item_image_two_rows, 
-    				R.id.tv_title, 
+    				R.layout.list_item_image_two_rows_c, 
+    				R.id.c_name, 
     				mContestants) {
     			
     		};
@@ -82,7 +82,7 @@ public class ContestantsActivity extends Activity {
 	
 	private class SubmitVoteTask extends AsyncTask<String, Integer, String> {
 		private static final int PROGRESS_START_SEARCH = 0;
-		
+		private String resultString = null;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -98,7 +98,10 @@ public class ContestantsActivity extends Activity {
 		protected String doInBackground(String... params) {
 			if (!hasVoted) {
 				hasVoted = true;
-				String str = TvHttpHandler.postVote(mShow.showId, mContestantId);
+				resultString = TvHttpHandler.postVote(mShow.showId, mContestantId);
+			}
+			else {
+			    
 			}
 			return null;
 		}
@@ -115,6 +118,7 @@ public class ContestantsActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
+			Toast.makeText(ContestantsActivity.this, "Vote Casted: " + resultString, Toast.LENGTH_SHORT).show();
 		}
 		
 		@Override

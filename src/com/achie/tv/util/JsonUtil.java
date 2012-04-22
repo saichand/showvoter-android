@@ -21,9 +21,11 @@ public class JsonUtil {
 			contestant.name = contestantObject.optString(C.jsonKeys.CONT_NAME);
 			contestant.contestantId = contestantObject.optLong(C.jsonKeys.CONT_ID);
 			contestant.contestantInfo = contestantObject.optString(C.jsonKeys.CONT_INFO);
+			//contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
+			//contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
 			contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
-			contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
-			contestant.imageUrl = contestantObject.optString(C.jsonKeys.CONT_IMG_URL);
+			contestant.voteCount = contestantObject.optLong(C.jsonKeys.CONT_VOTES);
+			contestant.rank = contestantObject.optString(C.jsonKeys.CONT_RANK);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -71,7 +73,7 @@ public class JsonUtil {
 			show.imageUrl = showObject.optString(C.jsonKeys.IMAGE_URL);
 			show.description = showObject.optString(C.jsonKeys.DESCRIPTION);
 			show.channel = showObject.optString(C.jsonKeys.CHANNEL);
-			
+			show.showId = showObject.optLong(C.jsonKeys.SHOW_ID);
 			show.contestants = new ArrayList<Contestant>();
 			JSONArray contestantsArray = showObject.optJSONArray(C.jsonKeys.CONTESTANTS);
 			if (contestantsArray != null) {
@@ -90,7 +92,7 @@ public class JsonUtil {
 	
 	public static ArrayList<TvShow> getShows(String showsJson) {
 		if (showsJson == null || showsJson.trim().length() == 0 || showsJson.equalsIgnoreCase("null")) return null;
-		
+		System.out.println("SHOWS JSON = " + showsJson);
 		ArrayList<TvShow> shows = new ArrayList<TvShow>();
 		JSONArray showsArray = null;
 		
